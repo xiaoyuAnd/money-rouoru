@@ -1,37 +1,46 @@
 <template>
-  <div>
-    <div class="nav">
-      <Icon name = 'm'/>
-      <router-link to="/">记账</router-link>
-      |
-      <Icon name = 'l'/>
-      <router-link to="/Labels">标签</router-link>
-      <Icon name = 's'/>
-      |
-      <router-link to="/Statistics">统计</router-link>
-    </div>
-  </div>
+  <nav>
+    <router-link to="/money" class="item" active-class="selected">
+      <Icon name="m"/>
+      记账
+    </router-link>
+    <router-link to="/labels" class="item" active-class="selected">
+      <Icon name="l"/>
+      标签
+    </router-link>
+    <router-link to="/statistics" class="item" active-class="selected">
+      <Icon name="s"/>
+      统计
+    </router-link>
+  </nav>
 </template>
 
 <script lang="ts">
-
 export default {
-  name: 'nav'
-
-}
+  name: 'Nav'
+};
 </script>
 
 <style lang="scss" scoped>
-.nav {
-  border: 1px solid red;
+nav {
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  flex-direction: row;
+  font-size: 12px;
+  > .item {
+    padding: 2px 0;
+    width: 33.33333%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .icon {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  > .item.selected{
+    color: red;
+  }
 }
-
-.nav .router-link-active {
-  display: flex;
-  align-items: center;
-}
-
 </style>
