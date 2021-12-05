@@ -1,14 +1,15 @@
 <template>
   <div>
-    Money
-    <Nav/>
+    当前页面不存在，请检查路径
+    <router-link to="./">返回首页</router-link>
+
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Money',
+  name: 'NotFound',
   data() {
     return {}
   }

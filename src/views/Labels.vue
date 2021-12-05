@@ -1,12 +1,13 @@
 <template>
     <div>
       Labels
+      <Nav/>
     </div>
 </template>
 
 <script>
     export default {
-        
+        name:'labels'
     }
 </script>
 

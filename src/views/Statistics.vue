@@ -1,13 +1,14 @@
 <template>
     <div>
        Statistics
+      <Nav/>
     </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {
+  name:'labels'
+}
 </script>
 
 <style lang="scss" scoped>

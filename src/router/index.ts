@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Money from '@/views/Money.vue'
 import Labels from '@/views/Labels.vue'
 import Statistics from '@/views/Statistics.vue'
+import NotFound from '@/views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -14,18 +15,20 @@ const routes: Array<RouteConfig> = [
   },
   {
     path:'/money',
-    name:'Money',
     component:Money
   },
   {
     path:'/labels',
-    name:'Labels',
     component:Labels
   },  {
     path:'/statistics',
-    name:'Statistics',
     component:Statistics
   },
+  {
+    path:'*',
+    component:NotFound
+  }
+
   // {
   //   path: '/about',
   //   name: 'About',
