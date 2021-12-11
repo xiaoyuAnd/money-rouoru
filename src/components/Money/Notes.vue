@@ -10,10 +10,15 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component} from 'vue-property-decorator'
+import { Component,Watch } from 'vue-property-decorator'
 @Component
 export default class Notes extends Vue {
   value='';
+  @Watch('value', { immediate: true, deep: true })
+  onValueChanged(){
+     this.$emit('update:value',this.value)
+  }
+
 
 }
 
