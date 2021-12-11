@@ -1,48 +1,68 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad @update:value="onUpdateAmount"/>
+    {{ recordList}}
+    <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <Types m="money" @update:value="onUpdateType"/>
     <Notes @update:value="onUpdateNotes"/>
     <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
-    {{record}}
+    {{ record }}
   </Layout>
 </template>
 
-<script >
+<script>
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
+import {model} from '@/model.js'
+
+// const recordList11 = JSON.parse(window.localStorage.getItem('recordList'))
+const recordList11 = model.fetch()
 
 export default {
   name: 'Money',
-  data(){
-    return{
-      tags:['衣','食','住','行'],
-      record:{
-        tags:[],
-        notes:'',
-        type:'-',
-        amount:0
-      }
+  data() {
+    return {
+      tags: ['衣', '食', '住', '行'],
+      record: {
+        tags: [],
+        notes: '',
+        type: '-',
+        amount: 0,
+        createAt:new Date()
+      },
+      recordList:recordList11
     }
   },
-  methods:{
-    onUpdateTags(value){
+
+  methods: {
+    onUpdateTags(value) {
       this.record.tags = value
     },
-    onUpdateNotes(value){
+    onUpdateNotes(value) {
       this.record.notes = value
     },
-    onUpdateType(value){
+    onUpdateType(value) {
       this.record.type = value
     },
-    onUpdateAmount(value){
+    onUpdateAmount(value) {
       this.record.amount = parseFloat(value)
+    },
+    saveRecord() {
+      // const record2 = JSON.parse(JSON.stringify(this.record));
+      const record2 = model.clone(this.record)
+      this.recordList.push(record2);
     }
   },
-
-
+  watch: {
+    // 如果 `question` 发生改变，这个函数就会运行
+    recordList: function () {
+      console.log(typeof this.recordList)
+      console.log(this.recordList)
+      // window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
+      model.save(this.recordList)
+    }
+  },
   components: {Tags, Notes, Types, NumberPad},
 
 };
