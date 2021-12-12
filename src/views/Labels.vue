@@ -8,7 +8,10 @@
         </router-link>
       </div>
       <div class="createTag-wrapper">
-        <button class="createTag" @click="createTag">新建标签</button>
+        <Button class="createTag"
+                @click="createTag">
+          新建标签
+        </Button>
       </div>
     </Layout>
   </div>
@@ -17,6 +20,7 @@
 <script>
 import Vue from 'vue';
 import {tagListModel} from '@/models/tagListModel';
+import Button from "@/components/Money/Button";
 
 
 tagListModel.fetch();
@@ -24,9 +28,10 @@ tagListModel.fetch();
 
 export default {
   name: 'Labels',
+  components: {Button},
   data() {
     return {
-      tags : tagListModel.data,
+      tags: tagListModel.data,
     }
   },
   methods: {
@@ -53,14 +58,12 @@ export default {
   background: white;
   font-size: 16px;
   padding-left: 16px;
-
   > .tag {
     min-height: 44px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #e6e6e6;
-
     svg {
       width: 18px;
       height: 18px;
@@ -69,7 +72,6 @@ export default {
     }
   }
 }
-
 .createTag {
   background: #767676;
   color: white;
@@ -77,12 +79,12 @@ export default {
   border: none;
   height: 40px;
   padding: 0 16px;
-
   &-wrapper {
     text-align: center;
     padding: 16px;
     margin-top: 44-16px;
   }
 }
+
 </style>
 
