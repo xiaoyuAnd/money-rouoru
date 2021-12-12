@@ -51,9 +51,8 @@ export default {
       this.record.amount = parseFloat(value)
     },
     saveRecord() {
+      recordListModel.create(this.record)
       // const record2 = JSON.parse(JSON.stringify(this.record));
-      const record2 = recordListModel.clone(this.record)
-      this.recordList.push(record2);
     }
   },
   watch: {
@@ -62,7 +61,7 @@ export default {
       console.log(typeof this.recordList)
       console.log(this.recordList)
       // window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
-      recordListModel.save(this.recordList)
+      recordListModel.save()
     }
   },
   components: {Tags, Notes, Types, NumberPad},
