@@ -3,7 +3,7 @@
 <!--    {{ recordList}}-->
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <Types m="money" @update:value="onUpdateType"/>
-    <Notes @update:value="onUpdateNotes"/>
+    <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="请输入备注"/>
     <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
 <!--    {{ record }}-->
   </Layout>
