@@ -47,9 +47,12 @@ export default {
     remove() {
       if (this.tag) {
         tagListModel.remove(this.tag.id);
+        window.alert('删除成功')
+        this.$router.back();
+      }else{
+        window.alert('删除失败')
       }
-      alert('删除成功')
-      this.$router.back();
+
     },
     goBack() {
       console.log('back');
