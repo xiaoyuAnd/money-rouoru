@@ -1,13 +1,15 @@
 const localStorageKeyName = 'recordList'
-const recordListModel={
-    clone(data){
+const recordListModel = {
+    data: [],
+    clone(data) {
         return JSON.parse(JSON.stringify(data));
     },
-    fetch (){
-       return JSON.parse(window.localStorage.getItem(localStorageKeyName))
+    fetch() {
+        this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName))
+        return this.data
     },
-    save(data){
-        window.localStorage.setItem(localStorageKeyName,JSON.stringify(data))
+    save() {
+        window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data))
     }
 }
 export {recordListModel}

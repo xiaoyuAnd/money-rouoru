@@ -15,15 +15,17 @@ import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {recordListModel} from '@/models/recordListModel'
+import {tagListModel} from "@/models/tagListModel";
 
 // const recordList11 = JSON.parse(window.localStorage.getItem('recordList'))
-const recordList11 = recordListModel.fetch()
+const recordList = recordListModel.fetch()
+const tagList = tagListModel.fetch()
 
 export default {
   name: 'Money',
   data() {
     return {
-      tags: ['衣', '食', '住', '行'],
+      tags: tagList,
       record: {
         tags: [],
         notes: '',
@@ -31,7 +33,7 @@ export default {
         amount: 0,
         createAt:new Date()
       },
-      recordList:recordList11
+      recordList:recordList
     }
   },
 
