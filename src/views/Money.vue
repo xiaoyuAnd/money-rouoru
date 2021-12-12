@@ -1,11 +1,11 @@
 <template>
   <Layout class-prefix="layout">
-    {{ recordList}}
+<!--    {{ recordList}}-->
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <Types m="money" @update:value="onUpdateType"/>
     <Notes @update:value="onUpdateNotes"/>
     <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
-    {{ record }}
+<!--    {{ record }}-->
   </Layout>
 </template>
 
@@ -14,10 +14,10 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
-import {model} from '@/model.js'
+import {recordListModel} from '@/models/recordListModel'
 
 // const recordList11 = JSON.parse(window.localStorage.getItem('recordList'))
-const recordList11 = model.fetch()
+const recordList11 = recordListModel.fetch()
 
 export default {
   name: 'Money',
@@ -50,7 +50,7 @@ export default {
     },
     saveRecord() {
       // const record2 = JSON.parse(JSON.stringify(this.record));
-      const record2 = model.clone(this.record)
+      const record2 = recordListModel.clone(this.record)
       this.recordList.push(record2);
     }
   },
@@ -60,7 +60,7 @@ export default {
       console.log(typeof this.recordList)
       console.log(this.recordList)
       // window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
-      model.save(this.recordList)
+      recordListModel.save(this.recordList)
     }
   },
   components: {Tags, Notes, Types, NumberPad},
