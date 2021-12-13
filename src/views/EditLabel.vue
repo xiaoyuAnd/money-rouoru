@@ -18,8 +18,9 @@
 
 <script>
 import Notes from '@/components/Money/Notes.vue';
-import {tagListModel} from "@/models/tagListModel";
+// import {tagListModel} from "@/models/tagListModel";
 import Button from "@/components/Money/Button";
+import store from "@/store/index2";
 
 export default {
   name: "EditLabel",
@@ -28,25 +29,31 @@ export default {
       tag:''
     }
   },
+  // created() {
+  //   console.log(this.$route.params)
+  //   const id = this.$route.params.id
+  //   store.tagList()
+  //   const tags = tagListModel.data;
+  //   const tag = tags.filter(t => t.id === id)[0]
+  //   if(tag){
+  //     this.tag = tag
+  //   }else{
+  //     this.$router.replace('/404')
+  //   }
+  // },
   created() {
-    console.log(this.$route.params)
-    const id = this.$route.params.id
-    tagListModel.fetch()
-    const tags = tagListModel.data;
-    const tag = tags.filter(t => t.id === id)[0]
-    if(tag){
-      this.tag = tag
-    }else{
-      this.$router.replace('/404')
+    this.tag = store.findTag(this.$route.params.id);
+    if (!this.tag) {
+      this.$router.replace('/404');
     }
   },
   methods:{
     update(name) {
-        tagListModel.update(this.tag.id, name);
+        store.updateTag(this.tag.id, name);
     },
     remove() {
       if (this.tag) {
-        tagListModel.remove(this.tag.id);
+        store.removeTag(this.tag.id);
         window.alert('删除成功')
         this.$router.back();
       }else{
