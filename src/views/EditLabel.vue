@@ -7,7 +7,7 @@
         <span class="rightIcon"></span>
       </div>
       <div class="form-wrapper">
-        <Notes @update:value="update" :value="tag.name" field-name="标签名" placeholder="请输入标签名"/>
+        <Notes @update:value="update" :value="currentTag.name" field-name="标签名" placeholder="请输入标签名"/>
       </div>
       <div class="button-wrapper">
         <Button @click="remove">删除标签</Button>
@@ -20,49 +20,38 @@
 import Notes from '@/components/Money/Notes.vue';
 // import {tagListModel} from "@/models/tagListModel";
 import Button from "@/components/Money/Button";
-import store from "@/store/index2";
+import store from "@/store/index";
 
 export default {
   name: "EditLabel",
-  data(){
-    return{
-      tag:''
+  computed: {
+    currentTag () {
+      return this.$store.state.currentTag;
     }
   },
-  // created() {
-  //   console.log(this.$route.params)
-  //   const id = this.$route.params.id
-  //   store.tagList()
-  //   const tags = tagListModel.data;
-  //   const tag = tags.filter(t => t.id === id)[0]
-  //   if(tag){
-  //     this.tag = tag
-  //   }else{
-  //     this.$router.replace('/404')
-  //   }
-  // },
+
   created() {
-    this.tag = store.findTag(this.$route.params.id);
-    if (!this.tag) {
+    const id = this.$route.params.id;
+    this.$store.commit('fetchTags');
+    this.$store.commit('setCurrentTag', id);
+    if (!this.currentTag) {
       this.$router.replace('/404');
     }
   },
   methods:{
     update(name) {
-        store.updateTag(this.tag.id, name);
+      if (this.currentTag) {
+        this.$store.commit('updateTag', {
+          id: this.currentTag.id, name
+        });
+      }
     },
     remove() {
-      if (this.tag) {
-        store.removeTag(this.tag.id);
-        window.alert('删除成功')
-        this.$router.back();
-      }else{
-        window.alert('删除失败')
+      if (this.currentTag) {
+        this.$store.commit('removeTag', this.currentTag.id);
       }
-
     },
     goBack() {
-      console.log('back');
       this.$router.back();
     }
   },

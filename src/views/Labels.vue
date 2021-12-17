@@ -2,7 +2,7 @@
   <div>
     <Layout>
       <div class="tags">
-        <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
+        <router-link class="tag" v-for="tag in tagList" :key="tag.id" :to="`/labels/edit/${tag.id}`">
           <span>{{ tag.name }}</span>
           <Icon name="right"/>
         </router-link>
@@ -21,7 +21,7 @@
 import Vue from 'vue';
 import {tagListModel} from '@/models/tagListModel';
 import Button from "@/components/Money/Button";
-import store from "@/store/index2";
+import store from "@/store/index";
 
 
 // tagListModel.fetch();
@@ -33,15 +33,23 @@ export default {
   components: {Button},
   data() {
     return {
-      tags: store.tagList,
+      // tags: store.tagList,
     }
+  },
+  computed: {
+    tagList () {
+      return this.$store.state.tagList
+    }
+  },
+  beforeCreate() {
+    this.$store.commit('fetchTags');
   },
   methods: {
     createTag() {
-      const name = window.prompt('请输出标签名');
-      if (name) {
-        const message = store.createTag(name);
-      }
+      const name = window.prompt('请输入标签名');
+      if (!name) { return window.alert('标签名不能为空'); }
+      console.log(name)
+      this.$store.commit('createTag', name);
     }
   }
 
