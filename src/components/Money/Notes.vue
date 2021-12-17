@@ -16,7 +16,6 @@ export default class Notes extends Vue {
   @Prop({default: ''}) value!: string;
   @Prop({required: true}) fieldName!: string;
   @Prop() placeholder?: string;
-  @Watch('value', { immediate: true, deep: true })
   onValueChanged(value:string){
      this.$emit('update:value',value)
   }
