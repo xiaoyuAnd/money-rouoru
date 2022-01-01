@@ -27,6 +27,7 @@ export default class Tags extends Vue {
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
     } else {
+      console.log(1111111)
       this.selectedTags.push(tag);
     }
     this.$emit('update:value',this.selectedTags)
@@ -43,6 +44,8 @@ export default class Tags extends Vue {
     const name = window.prompt('请输入标签名');
     if (!name) { return window.alert('标签名不能为空'); }
     this.$store.commit('createTag', name);
+    window.alert('添加成功');
+
   }
 
 

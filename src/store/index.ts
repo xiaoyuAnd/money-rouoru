@@ -40,8 +40,6 @@ const store = new Vuex.Store({
 
             if (idList.indexOf(id) >= 0) {
                 const names = state.tagList.map(item => item.name);
-                console.log(names.indexOf(name))
-                console.log(names)
                 if (names.indexOf(name) >= 0) {
                     window.alert('标签名重复了');
                 } else {
@@ -83,18 +81,23 @@ const store = new Vuex.Store({
         },
         fetchTags(state) {
             state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+            if(!state.tagList || state.tagList.length === 0){
+                store.commit('createTag','衣')
+                store.commit('createTag','食')
+                store.commit('createTag','住')
+                store.commit('createTag','行')
+            }
         },
         createTag(state, name: string) {
             const names = state.tagList.map(item => item.name);
             if (names.indexOf(name) >= 0) {
                 window.alert('标签名重复了');
+            }else{
+                const id = createId().toString();
+                state.tagList.push({id, name: name});
+                store.commit('saveTags');
             }
-            const id = createId().toString();
-            console.log(1111)
 
-            state.tagList.push({id, name: name});
-            store.commit('saveTags');
-            window.alert('添加成功');
         },
         saveTags(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList));

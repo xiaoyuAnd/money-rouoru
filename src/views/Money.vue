@@ -4,8 +4,8 @@
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <Types m="money" @update:value="onUpdateType"/>
 <!--    {{tagList}}-->
-    <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="请输入备注"/>
-    <Tags />
+    <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="请输入备注" :value="record.notes"/>
+    <Tags @update:value="onUpdateTags"/>
 <!--    {{ record }}-->
   </Layout>
 </template>
@@ -37,9 +37,9 @@ export default {
     }
   },
   methods: {
-    // onUpdateTags(value) {
-    //   this.record.tags = value
-    // },
+    onUpdateTags(value) {
+      this.record.tags = value
+    },
     onUpdateNotes(value) {
       this.record.notes = value;
     },
@@ -50,18 +50,14 @@ export default {
       this.record.amount = parseFloat(value)
     },
     saveRecord() {
-      this.$store.commit('createRecord', this.record);
+      if(!this.record.tags || this.record.tags.length === 0 ){
+        window.alert('请至少选择一个标签')
+      }else{
+        this.$store.commit('createRecord', this.record);
+        this.record.notes = ''
+      }
     }
   },
-  // watch: {
-  //   // 如果 `question` 发生改变，这个函数就会运行
-  //   recordList: function () {
-  //     console.log(typeof this.recordList)
-  //     console.log(this.recordList)
-  //     // window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
-  //     recordListModel.save()
-  //   }
-  // },
   components: {Tags, Notes, Types, NumberPad},
 
 };
